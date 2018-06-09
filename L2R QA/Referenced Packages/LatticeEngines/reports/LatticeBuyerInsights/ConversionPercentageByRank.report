@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <acrossGroupingContext>RecommendationOpportunitySummary__c$Rank__c</acrossGroupingContext>
+        <calculatedFormula>IF ( RecommendationOpportunitySummary__c.Total__c:SUM = 0,
+0,
+RecommendationOpportunitySummary__c.Converted__c:SUM / RecommendationOpportunitySummary__c.Total__c:SUM
+)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>RecommendationOpportunitySummary__c$PlayRun__c</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Play Run Conversion Percentage</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <aggregates>
+        <acrossGroupingContext>RecommendationOpportunitySummary__c$Rank__c</acrossGroupingContext>
+        <calculatedFormula>IF ( RecommendationOpportunitySummary__c.Total__c:SUM = 0,
+0,
+RecommendationOpportunitySummary__c.Converted__c:SUM / RecommendationOpportunitySummary__c.Total__c:SUM
+)</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA2</developerName>
+        <downGroupingContext>GRAND_SUMMARY</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Conversions to Opportunity (%)</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>FORMULA2</column>
+        </chartSummaries>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y2</axisBinding>
+            <column>RecommendationOpportunitySummary__c$Converted__c</column>
+        </chartSummaries>
+        <chartType>VerticalColumnLine</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>RecommendationOpportunitySummary__c$Rank__c</groupingColumn>
+        <legendPosition>Bottom</legendPosition>
+        <location>CHART_TOP</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>RecommendationOpportunitySummary__c$Converted__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>RecommendationOpportunitySummary__c$Total__c</field>
+    </columns>
+    <description>Dashboard: Conversion Percentage By Rank</description>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecommendationOpportunitySummary__c$Rank__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecommendationOpportunitySummary__c$OpportunityStageName__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecommendationOpportunitySummary__c$PlayRun__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Conversion Percentage By Rank</name>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>RecommendationOpportunitySummaries__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>RecommendationOpportunitySummary__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

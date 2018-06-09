@@ -1,0 +1,55 @@
+<messaging:emailTemplate subject="{!$Organization.Name + IF(ISBLANK(RelatedTo.LBI__LatticeApplicationRegion__c), ': ' , ', ' + RelatedTo.LatticeApplicationRegion__r.LBI__ApplicationOrRegionName__c + ': ') + $Label.lbi__not_criticalsubject}" recipientType="User" relatedToType="LBI__Notification__c">
+<messaging:plainTextEmailBody >
+
+{!$Label.lbi__not_criticalintro}
+
+<apex:outputText value="{!RelatedTo.LBI__Type__c}" rendered="{!RelatedTo.LBI__IsCritical__c}"/>
+{!$Label.lbi__not_issued}: <apex:outputText value="{!RelatedTo.CreatedDate}" />
+<apex:outputText value="{!RelatedTo.LBI__Title__c}" />
+<apex:outputText value="{!RelatedTo.LBI__Description__c}" />
+
+
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+
+<apex:outputPanel layout="none" id="thePage">
+
+    <table style="max-width: 800px; min-width: 600px; margin: 0 auto;">
+        <tr style="border-bottom: 1px solid #DBDAD5; display: block;">
+            <td style="width:100%;display:block;">
+                <h2 style="font-size: 24px; color: #2E2E2C; font-weight: 100; margin-bottom: 0; margin-top:0;display:inline-block;padding-bottom:10px;">Notifications: <span style="color: #D32027; font-style: italic;">Critical</span></h2>
+                <img src="http://pages.lattice-engines.com/rs/latticeengines/images/lattice-logo.png" alt="Logo" title="Logo" style="display:block; float:right;" width="100" height="26" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p style="color: #2E2E2C; margin-top: 15px;">{!$Label.lbi__not_criticalintro}</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #F3F2F1; padding: 25px; border-radius: 4px; margin-bottom: 10px;">
+                <apex:outputPanel layout="none" rendered="{!RelatedTo.LBI__IsCritical__c}">{!RelatedTo.LBI__Type__c}</apex:outputPanel>
+                <span class="date" style="color: #2E2E2C; font-style: italic; font-size: 11px;">{!$Label.lbi__not_issued}:&nbsp;<apex:outputField value="{!RelatedTo.CreatedDate}" /></span>
+                <h3 style="color: #2E2E2C; font-size: 18px; font-weight: normal; margin: 5px 0;"><apex:outputLink value="{!RelatedTo.LBI__ResolutionLink__c}"><apex:outputText value="{!RelatedTo.LBI__Title__c}" /></apex:outputLink></h3>
+                <p style="color: #2E2E2C; margin-top: 5px; margin-bottom: 0;"><apex:outputText value="{!RelatedTo.LBI__Description__c}"></apex:outputText></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">
+                <small style="text-align: center; color: #989894; padding: 20px 0; width: 75%; margin:0 auto; display: block;"><i>This email is being sent to you because you are a recipient for notifications on Lattice Engines for Salesforce. If you would like to be taken off of this list, please contact your Salesforce Administrator.
+                <br /><br />
+                To resolve or learn more about the above notification, log in to your Salesforce Account or contact your Salesforce Administrator.</i></small>
+            </td>
+        </tr>
+    </table>
+
+</apex:outputPanel>
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

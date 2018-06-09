@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Used in the recommendation mobile view for converting</description>
+    <height>600</height>
+    <icon>MobileConvertIcon</icon>
+    <label>Convert to Opportunity</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <page>MobileRecommendationConvert</page>
+    <type>VisualforcePage</type>
+    <width>-100</width>
+</QuickAction>

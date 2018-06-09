@@ -1,0 +1,10 @@
+<design:component label="Lattice - Recommendations IFrame">
+  	<design:attribute name="iFrameType" label="Type" datasource="Talking Points, Buying Signals, Spend Analytics, Lattice Insights" default="Lattice Insights" />
+	<sfdc:objects >
+        <sfdc:object >Account</sfdc:object>
+        <sfdc:object >Contact</sfdc:object>
+        <sfdc:object >Lead</sfdc:object>
+        <sfdc:object >Opportunity</sfdc:object>
+    </sfdc:objects>
+
+</design:component>

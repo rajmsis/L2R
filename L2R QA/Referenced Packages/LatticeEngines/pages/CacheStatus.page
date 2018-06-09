@@ -1,0 +1,53 @@
+<apex:page id="thePage" controller="LBI.CacheStatusController" action="{!refreshCacheStats}" tabstyle="LatticeCacheStatus__tab">
+	<apex:form id="theForm" >
+		<apex:actionPoller action="{!refreshCacheStats}" rerender="cacheEnabledPanel, messages" interval="5" />
+	
+		<apex:pageMessages id="messages" />
+		
+		<apex:outputPanel rendered="{!isCacheEnabled}" id="cacheEnabledPanel">
+			<apex:pageBlock id="theBlock">
+				
+				<apex:pageBlockButtons >
+					<apex:commandButton value="Refresh Now" action="{!refreshCacheStats}" rerender="cacheEnabledPanel, messages" /> 
+				</apex:pageBlockButtons>
+				
+				<apex:pageBlockSection id="headerBlockSection" title="Cache Partition Status" collapsible="false" columns="1">
+					<apex:pageBlockSectionItem helpText="Percent used of total cache in organization.  This will include partitions other than the Lattice partition.">
+						<apex:outputLabel value="Percent Used (Total Organization)" />
+						<apex:outputText value="{0, number, ###.##}%">
+							<apex:param value="{!percentUsed}" />
+						</apex:outputText>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem helpText="Time in nanoseconds it takes to retrieve values from the cache on average.">
+						<apex:outputLabel value="Average Get Time (ns)" />
+						<apex:outputText value="{0, number, ###,###,###,###}">
+							<apex:param value="{!averageGetTime}" />
+						</apex:outputText>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Average Get Time (ms)" />
+						<apex:outputText value="{0, number, ###,###,###,###}">
+							<apex:param value="{!averageGetTimeMS}" />
+						</apex:outputText>
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem helpText="This shows the percent of time a call to get a value from the cache misses.  This is usually due to a setting having changed and clearing the cache, and can be higher when there is a lot of activity on the administrative pages.">
+						<apex:outputLabel value="Percent Miss Rate" />
+						<apex:outputText value="{0, number, ###.##}%">
+							<apex:param value="{!missRate*100}" />
+						</apex:outputText>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+				
+				<apex:pageBlockTable id="lineItemTable" title="Stored Cache Table" value="{!cacheStatusLines}" var="line">
+					<apex:column headerValue="">
+						<apex:commandLink action="{!clearThisKey}" value="Clear" rerender="cacheEnabledPanel, messages">
+							<apex:param name="keyName" assignTo="{!selectedKey}" value="{!line.cacheKey}" />
+						</apex:commandLink>
+					</apex:column>
+					<apex:column value="{!line.cacheKey}" headerValue="Key"/>
+					<apex:column value="{!line.cacheValueJson}" headerValue="Serialized Value"/>
+				</apex:pageBlockTable>
+			</apex:pageBlock>
+		</apex:outputPanel>
+	</apex:form>
+</apex:page>

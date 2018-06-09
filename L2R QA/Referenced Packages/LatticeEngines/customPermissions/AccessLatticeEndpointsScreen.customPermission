@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Is the User able to access the Lattice Integration Settings Screen in the Advanced Settings screen</description>
+    <label>Access Lattice Integration Settings Screen</label>
+</CustomPermission>

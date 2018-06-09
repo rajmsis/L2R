@@ -1,0 +1,7 @@
+<design:component label="Lattice - Related Recommendations">
+	<sfdc:objects >
+        <sfdc:object >LBI__Recommendation__c</sfdc:object>
+    </sfdc:objects>
+
+  <design:attribute name="relatedType" label="Type" datasource="Account, Play" />
+</design:component>

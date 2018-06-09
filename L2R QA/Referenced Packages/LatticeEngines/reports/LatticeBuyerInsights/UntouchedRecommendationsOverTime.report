@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_63472071</developerName>
+        <masterLabel>Play Run Age</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>RecommendationSummary__c$RunDateAge__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>14</to>
+            </sourceValues>
+            <value>0-2 Weeks</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>14</from>
+                <to>28</to>
+            </sourceValues>
+            <value>2-4 Weeks</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>28</from>
+            </sourceValues>
+            <value>4+ Weeks</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>RecommendationSummary__c$Untouched__c</column>
+        </chartSummaries>
+        <chartType>LineGrouped</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>RecommendationSummary__c$WeekStartDate__c</groupingColumn>
+        <legendPosition>Bottom</legendPosition>
+        <location>CHART_TOP</location>
+        <secondaryGroupingColumn>RecommendationSummary__c$Rank__c</secondaryGroupingColumn>
+        <showAxisLabels>false</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>RecommendationSummary__c$Untouched__c</field>
+    </columns>
+    <columns>
+        <field>RecommendationSummary__c$Name</field>
+    </columns>
+    <description>Dashboard: Untouched Recommendations Over Time</description>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecommendationSummary__c$WeekStartDate__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecommendationSummary__c$Rank__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Untouched Recommendations Over Time</name>
+    <params>
+        <name>co</name>
+        <value>0</value>
+    </params>
+    <reportType>RecommendationSummaries__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>RecommendationSummary__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

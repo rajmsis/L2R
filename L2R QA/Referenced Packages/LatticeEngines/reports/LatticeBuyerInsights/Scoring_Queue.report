@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ScoringQueue__c$Name</field>
+    </columns>
+    <columns>
+        <field>ScoringQueue__c$ErrorMessage__c</field>
+    </columns>
+    <columns>
+        <field>ScoringQueue__c$Priority__c</field>
+    </columns>
+    <columns>
+        <field>ScoringQueue__c$Object__c</field>
+    </columns>
+    <columns>
+        <field>ScoringQueue__c$LinkToRecord__c</field>
+    </columns>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>ScoringQueue__c$ErrorMessageShort__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ScoringQueue__c$ErrorCount__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>Scoring Queue</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Lattice_Scoring_Queue__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>ScoringQueue__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

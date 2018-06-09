@@ -1,0 +1,3 @@
+<aura:component implements="force:appHostable" >
+	<LBI:LatticeListView objectType="Recommendation__c" />
+</aura:component>

@@ -1,0 +1,137 @@
+<apex:page sidebar="false"
+	standardStylesheets="false"
+	docType="html-5.0"
+	action="{!initializePage}"
+	readOnly="true"
+	>
+
+	<apex:stylesheet value="{!URLFOR($Resource.LBI__installAssets,'styles/global.css')}" />
+
+	<section class="model-details">
+
+
+
+		<div class="sidebar">
+			<ul>
+				<li class="lattice-logo"><a href=""><span>Lattice</span></a></li>
+				<li class="active">
+					<a href="">
+						<span class="ico-container">
+							<span class="ico-dataCloud"></span>
+						</span>
+						<span>Lattice Data Cloud Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<span class="ico-container">
+							<span class="ico-scoreSettings"></span>
+						</span>
+						<span>Score &amp; Enrich Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<span class="ico-container">
+							<span class="ico-bulkJobs"></span>
+						</span>
+						<span>Bulk Scoring Jobs</span>
+					</a>
+				</li>
+				<li>
+					<a href="">
+						<span class="ico-container">
+							<span class="ico-auth"></span>
+						</span>
+						<span>Authentication &amp; Integration</span>
+					</a>
+				</li>
+			</ul>
+		</div><!-- End .sidebar -->
+
+
+		<div class="content-area">
+
+			<div class="header">
+	  			<hgroup>
+	  				<h2>Score &amp; Enrich</h2>
+	  				<h3>Lattice Data Cloud Settings</h3>
+	  			</hgroup>
+	  			<div class="actions">
+	  				<a href="" class="notifications"><span class="count">123</span></a>
+	  				<a href="" class="change-application">Change Application</a>
+	  			</div>
+			</div>
+
+			<ul class="tabs primary-tabs">
+				<li class="active"><a href="">Lattice Data Cloud</a></li>
+				<li><a href="">Enrichment Attributes</a></li>
+			</ul>
+
+			<div class="container-fluid">
+
+				<div class="row">
+		  			<div class="col-md-12">
+
+		  				<div class="back-button">
+		  					<a href=""><strong>&larr;</strong> All Models</a>
+		  				</div>
+
+		  				<div class="detail-card">
+		  					<div class="row">
+		  						<div class="col-md-6">
+		  							<h4>Model: <strong>US Enterprise Leads</strong></h4>
+		  							<h5>To enable scoring, please configure field mapping for one or more objects.</h5>
+		  						</div>
+		  						<div class="col-md-4 text-right">
+		  							<h4 class="secondary">Override Lattice Data Cloud Settings</h4>
+		  							<input class="tgl tgl-light" id="cb1" type="checkbox"/>
+		  							<label class="tgl-btn" for="cb1" />
+		  						</div>
+		  						<div class="col-md-2 text-right">
+		  							<h4 class="secondary">Type</h4>
+		  							<p>Contact</p>
+		  						</div>
+		  					</div>
+		  				</div>
+
+		  				<ul class="tabs interior">
+		  					<li><a href="">Lead</a></li><li class="active"><a href="">Contact</a></li><li><a href="">Account</a></li><li><a href="">Opportunity</a></li>
+		  				</ul>
+		  				<div class="info-message">You have not yet configured field mapping for contact object.</div>
+						<div class="table">
+							<div class="header">
+								<h4>Lattice Data Cloud</h4>
+								<h5>Map fields below to match leads with Lattice Data Cloud. Mapping as many as possible will allow for a better match.</h5>
+							</div>
+							<table class="section-body unstyled field-mapping-standard">
+								<thead>
+									<tr>
+										<th>Attribute</th>
+										<th>Salesforce Field</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Company Name</td>
+										<td>
+											<select>
+												<option>Company</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!-- End .table -->
+
+					</div><!-- End .col-md-12 -->
+				</div><!-- End .row -->
+			</div><!-- End .container-fluid -->
+
+		</div><!-- End .content-area -->
+
+
+
+  	</section><!-- End .model-details -->
+
+</apex:page>

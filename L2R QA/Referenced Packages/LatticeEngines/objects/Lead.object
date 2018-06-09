@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>EstimatedRevenue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Recommendation__r.MonetaryValue__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Estimated Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>LatticeRating__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Value of Rating field from associated Recommendation record.</description>
+        <externalId>false</externalId>
+        <formula>Recommendation__r.Rank__c</formula>
+        <inlineHelpText>Value of Rating field from associated Recommendation record.</inlineHelpText>
+        <label>Lattice Recommendation Rating</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LatticeScore__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Value of Score field from associated Recommendation record.</description>
+        <externalId>false</externalId>
+        <formula>Recommendation__r.Likelihood__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Value of Score field from associated Recommendation record.</inlineHelpText>
+        <label>Lattice Recommendation Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recommendation__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Recommendation</label>
+        <referenceTo>Recommendation__c</referenceTo>
+        <relationshipLabel>Leads</relationshipLabel>
+        <relationshipName>Leads</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

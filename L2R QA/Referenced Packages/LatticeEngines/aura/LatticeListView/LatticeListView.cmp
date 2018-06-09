@@ -1,0 +1,79 @@
+<aura:component controller="LBI.LCLatticeListViewController">
+	<aura:attribute access="public" name="objectType" type="String" />
+
+	<aura:attribute access="public" name="listviews" type="Object" description="Available Listviews" />
+	<aura:attribute access="public" name="selectedListViewId" type="String" default="" description="Default Listview" />
+	<aura:attribute access="public" name="pagedRecords" type="Object[]" description="Page of Records" />
+
+	<aura:attribute access="public" name="labels" type="Object" description="Localized Labels" />
+	<aura:attribute access="public" name="namespacePrefix" type="String" default="" description="Namespace Prefix" />
+
+	<aura:attribute access="private" name="recDetail" type="Aura.Component" />
+	<aura:attribute access="private" name="isShowingDetail" type="Boolean" default="false" />
+
+    <ltng:require scripts="{!$Resource.LBI__LightningJSUtilities_js}" afterScriptsLoaded="{!c.init}" />
+
+    <lightning:select label="Select a Listview" onchange="{!c.changeListview}" aura:id="listview" value="{!v.selectedListViewId}">
+	    <aura:iteration items="{!v.listviews}" var="lst">
+	    	<option value="{!lst.value}">{!lst.label}</option>
+	    </aura:iteration>
+    </lightning:select>
+	<br/>
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--striped">
+  	<thead>
+		<tr class="slds-text-title--caps">
+			<th scope="col" style="width:3.25rem;" class="slds-text-align--right">
+				<div class="slds-th__action slds-th__action--form">
+				</div>
+			</th>
+			<th scope="col">
+				<div class="slds-truncate" title="Recommendation Name">Recommendation Name</div>
+			</th>
+			<th scope="col">
+				<div class="slds-truncate" title="Account">Account</div>
+			</th>
+			<th scope="col">
+				<div class="slds-truncate" title="Score">Score</div>
+			</th>
+			<th scope="col">
+				<div class="slds-truncate" title="Rating">Rating</div>
+			</th>
+			<th scope="col">
+				<div class="slds-truncate" title="Est. Revenue">Est. Revenue</div>
+			</th>
+		</tr>
+	</thead>
+  	<tbody>
+  		<aura:iteration items="{!v.pagedRecords}" var="rec">
+  			<tr>
+  				<td role="gridcell" class="slds-text-align--right" style="width:3.25rem;">
+  					<a onclick="{!c.viewRec}" aura:id="{!rec.id}" id="{!rec.id}">View</a>
+  				</td>
+  				<th scope="row" data-label="Opportunity Name">
+					<div class="slds-truncate" title="{!rec.displayName}">{!rec.displayName}</div>
+				</th>
+				<td data-label="Account Name">
+					<div class="slds-truncate" title="{!rec.accountName}">{!rec.accountName}</div>
+				</td>
+				<td data-label="Account Name">
+					<div class="slds-truncate" title="{!rec.likelihood}">{!rec.likelihood}</div>
+				</td>
+				<td data-label="Account Name">
+					<div class="slds-truncate" title="{!rec.rank}">{!rec.rank}</div>
+				</td>
+				<td data-label="Account Name">
+					<div class="slds-truncate" title="{!rec.monetaryValue}">
+						<lightning:formattedNumber value="{!rec.monetaryValue}" style="currency" />
+					</div>
+				</td>
+    		</tr>
+    	</aura:iteration>
+	</tbody>
+	</table>
+
+    <aura:if isTrue="{!v.isShowingDetail}">
+    	{!v.recDetail}
+    </aura:if>
+
+	<lightning:spinner variant="brand" size="large" aura:id="loadingSpinner" alternativeText="Loading..."/>
+</aura:component>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Houses information regarding the Lattice Application&apos;s API interactions.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Count__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The maximum number of times the batch data retrieve jobs will retry when unforeseen errors occur.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The maximum number of times the batch data retrieve jobs will retry when unforeseen errors occur.</inlineHelpText>
+        <label>Count</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaximumPagesPerBatchPull__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This setting governs how many total pages to generate in API data retrieval jobs.  9000 is a good number and stays under the 10k DML limit.  Edit if you want less for some reason, or if SFDC changes the governor.</description>
+        <externalId>false</externalId>
+        <label>Maximum Pages Per Batch Pull</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RetryCount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Holds the actual number of times the API has retried.  Do not edit this field manually.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Holds the actual number of times the API has retried.  Do not edit this field manually.</inlineHelpText>
+        <label>Retry Count</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TimeoutSeconds__c</fullName>
+        <deprecated>false</deprecated>
+        <description>How many seconds should we wait for the Lattice APIs to respond?  Maximum is 120.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How many seconds should we wait for the Lattice APIs to respond?  Maximum is 120.</inlineHelpText>
+        <label>Timeout Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Global API Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

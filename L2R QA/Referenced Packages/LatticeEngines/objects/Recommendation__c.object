@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>RecommendationsList</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>RecommendationsList</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>RecommendationsList</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Lattice_Recommendation_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>CompactLayout</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>CompactLayout</fullName>
+        <fields>DisplayName__c</fields>
+        <fields>Description__c</fields>
+        <label>CompactLayout</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Top10Deals</fullName>
+        <description>Top 10 Deals per Rank</description>
+        <displayedFields>
+            <field>Opportunity__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Account__r.Name</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PlayName__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PlayTypeName__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Opportunity__r.StageName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Opportunity__r.ExpectedRevenue</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Top10Deals</label>
+    </fieldSets>
+    <fields>
+        <fullName>AccountExtension__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account Extension</label>
+        <referenceTo>AccountExtension__c</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ActivitiesTaken__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(LastEmailDatetime__c), &apos;&apos;,
+IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/action-email-taken.png&apos;, &apos;Email Sent &apos;+TEXT(LastEmailDatetime__c)) + &apos; &apos;
+)
++
+IF(ISBLANK(LastCallDatetime__c),&apos;&apos;,
+IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/action-call-taken.png&apos;, &apos;Call Created &apos;+TEXT(LastCallDatetime__c) ) + &apos; &apos;
+)
++
+IF(ISBLANK(LastTaskDatetime__c), &apos;&apos;,
+IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/action-task-taken.png&apos;, &apos;Task Created &apos;+TEXT(LastTaskDatetime__c)) + &apos; &apos;
+)
++
+IF(ISBLANK(LastEventDatetime__c), &apos;&apos;,
+IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/action-event-taken.png&apos;, &apos;Event Created &apos;+TEXT(LastEventDatetime__c)) + &apos; &apos;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activities Taken</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AgeInDays__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TEXT(FLOOR(NOW() - CreatedDate))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Age in Days</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CampaignId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Campaign__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Campaign Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipLabel>Lattice Recommendations</relationshipLabel>
+        <relationshipName>Lattice_Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CompanyName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DaysIdle__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TODAY() - DATEVALUE( LastModifiedDate )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Idle</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DaysSinceDisqualification__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>today() -  DATEVALUE(  DisqualificationDate__c  )</formula>
+        <label>Days since Disqualification</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DaysToConversion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>QualifiedDate__c -  CreatedDate</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days To Conversion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisplayName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Display Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisqualificationDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Disqualification Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>DisqualificationReasonDetails__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Disqualification Reason Details</label>
+        <length>2500</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DisqualificationReason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Disqualification Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ExpiredDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Expired Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>FilteredAccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>This field populates Account if and only if Recommendations values are in either Open or In Progress</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field populates Account if and only if Recommendations values are in either Open or In Progress</inlineHelpText>
+        <label>Filtered Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>OpenandInProgressRecommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IsContactFromAPI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is Contact From API</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsNew__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Is New</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsSelected__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Used in the various recommendation VF pages to enable simple record selection.  Not needed on standard UI.</description>
+        <externalId>false</externalId>
+        <label>Is Selected</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LastActivityId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Activity ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastActivityType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Activity Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Event</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Email</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Call</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Task</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>LastCallDatetime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Call Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastDispositionDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Disposition Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastDispositionedBy__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Dispositioned By</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastEmailDatetime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Email Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastEventDatetime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Event Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LastTaskDatetime__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Task Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>LatticeAccountId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This matches LEAccountExternalID in the API</description>
+        <externalId>false</externalId>
+        <label>Lattice Account ID</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LaunchRunId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Launch Run Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LeadId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Lead__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lead Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Likelihood__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lattice Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LinkedToOpportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Linked To Opportunity</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ModelId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Model Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MonetaryValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Est. Revenue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&apos;javascript:viewRecommendation(&quot;&apos; + Id +&apos;&quot;,&quot;&apos; + DisplayName__c +&apos;&quot;);&apos;, DisplayName__c, &apos;_self&apos;)</formula>
+        <label>Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <lookupFilter>
+            <active>true</active>
+            <booleanFilter>1 AND (2 AND 3)</booleanFilter>
+            <errorMessage>Recommendation&apos;s Account must match Opportunity&apos;s Account.</errorMessage>
+            <filterItems>
+                <field>Opportunity.Account.Id</field>
+                <operation>equals</operation>
+                <valueField>$Source.Account__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>Opportunity.StageName</field>
+                <operation>notEqual</operation>
+                <value>Closed Won</value>
+            </filterItems>
+            <filterItems>
+                <field>Opportunity.StageName</field>
+                <operation>notEqual</operation>
+                <value>Closed Lost</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Lattice Recommendations</relationshipLabel>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OwnerName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Owner:User.FirstName + Owner:User.LastName)), Owner:User.FirstName + &apos; &apos; + Owner:User.LastName,  Owner:Queue.QueueName)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Owner Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayAccountKey__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Composite field that is made up of PlayID--AccountID. Used to determine &quot;unique&quot; recommendations</description>
+        <externalId>false</externalId>
+        <label>Play Account Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Play__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Play Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Play__r.DisplayName__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Play Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayRun__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Play Run</label>
+        <referenceTo>PlayRun__c</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PlayTypeIcon__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(LOWER(PlayTypeName__c)
+, &quot;upsell&quot;, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-upsell.png&apos;, &apos;Upsell&apos;)
+, &quot;prospecting&quot;, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-prospecting.png&apos;, &apos;Prospecting&apos;)
+, &quot;new-prospect&quot;, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-prospecting.png&apos;, &apos;Prospecting&apos;)
+, &quot;renewal&quot;, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-renew.png&apos;, &apos;Renewal&apos;)
+, &quot;cross-sell&quot;, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-cross-sell.png&apos;, &apos;Cross-Sell&apos;)
+, IMAGE(&apos;/resource/&apos;+$Setup.GlobalSettings__c.Namespace__c+&apos;Icons/playType-other.png&apos;, &apos;Other&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Recommendation Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayTypeNameClass__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(LOWER(PlayTypeName__c)
+, &quot;upsell&quot;, &quot;upsell&quot;
+, &quot;prospecting&quot;, &quot;new-prospect&quot;
+, &quot;new-prospect&quot;, &quot;new-prospect&quot;
+, &quot;renewal&quot;, &quot;renewal&quot;
+, &quot;cross-sell&quot;, &quot;cross-sell&quot;
+, &quot;other&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Play Type Name Class</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlayTypeName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Play__r.PlayType__r.PlayTypeName__c</formula>
+        <label>Play Type Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Play__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Play</label>
+        <referenceTo>Play__c</referenceTo>
+        <relationshipName>Recommendations</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PreLeadId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>PreLead Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PriorityId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Priority Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QualifiedDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Qualified Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Rank__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lattice Rating</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RecommendationAccountId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Recommendation Account Id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RowNumber__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Row Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Open</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Expired</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Suppressed</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Disqualified</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Qualified</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>WorkflowSettingId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>PlayRun__r.LatticeWorkflowSetting__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Workflow Setting Id</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Lattice Recommendation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>DisplayName__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>Status__c</columns>
+        <columns>Play__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Disqualified_Recommendations</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>DisqualificationReason__c</columns>
+        <columns>DisqualificationDate__c</columns>
+        <columns>Play__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </filters>
+        <label>Disqualified Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>Expired_Recommendations</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>ExpiredDate__c</columns>
+        <columns>Play__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Expired</value>
+        </filters>
+        <label>Expired Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>In_Progress_Recommendations</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Progress</value>
+        </filters>
+        <label>In Progress Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>Lead_Based_Recommendations</fullName>
+        <columns>Lead__c</columns>
+        <columns>DisplayName__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>Status__c</columns>
+        <columns>Play__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Account__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Lead__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open,In Progress</value>
+        </filters>
+        <label>Lead Based Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>Open_Recommendations</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>DisplayName__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>Status__c</columns>
+        <columns>Play__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </filters>
+        <label>Open Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>Qualified_Recommendations</fullName>
+        <columns>Opportunity__c</columns>
+        <columns>Account__c</columns>
+        <columns>Name__c</columns>
+        <columns>Play__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>PlayTypeName__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Qualified</value>
+        </filters>
+        <label>Qualified Recommendations</label>
+    </listViews>
+    <listViews>
+        <fullName>RecentlyDisqualified</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>Play__c</columns>
+        <columns>Rank__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>DisqualificationDate__c</columns>
+        <columns>DisqualificationReason__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Disqualified</value>
+        </filters>
+        <filters>
+            <field>DaysSinceDisqualification__c</field>
+            <operation>lessThan</operation>
+            <value>7</value>
+        </filters>
+        <label>Recently Disqualified</label>
+    </listViews>
+    <listViews>
+        <fullName>Recommendation_Based_Workflow</fullName>
+        <columns>Name__c</columns>
+        <columns>Account__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Play__c</columns>
+        <columns>Rank__c</columns>
+        <columns>Likelihood__c</columns>
+        <columns>MonetaryValue__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Lead__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open,In Progress</value>
+        </filters>
+        <label>Recommendation Based Workflow</label>
+    </listViews>
+    <nameField>
+        <displayFormat>REC-{00000000}</displayFormat>
+        <label>Recommendation Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Lattice Recommendations</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>DisplayName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CompanyName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>MonetaryValue__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Rank__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Likelihood__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <listViewButtons>Convert</listViewButtons>
+        <listViewButtons>Disqualify</listViewButtons>
+        <listViewButtons>Expire</listViewButtons>
+        <lookupDialogsAdditionalFields>CompanyName__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Name__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Play__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Likelihood__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Rank__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>MonetaryValue__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>DisplayName__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Description__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>MonetaryValue__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Rank__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Likelihood__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>DisplayName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CompanyName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Rank__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Description__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Likelihood__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Play__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PlayRun__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Only_Open_In_Progress_Allowed</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+NOT(ISBLANK(FilteredAccount__c))
+,
+AND(NOT(ISPICKVAL(Status__c, &apos;Open&apos;)), NOT(ISPICKVAL(Status__c, &apos;In Progress&apos;)))
+)</errorConditionFormula>
+        <errorDisplayField>FilteredAccount__c</errorDisplayField>
+        <errorMessage>Filtered account can only be populated when status is &apos;Open&apos; or &apos;In Progress&apos;</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Convert</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert</masterLabel>
+        <openType>sidebar</openType>
+        <page>RecommendationMassConvert</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Disqualify</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Disqualify</masterLabel>
+        <openType>sidebar</openType>
+        <page>RecommendationMassDisqualify</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+    <webLinks>
+        <fullName>Expire</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Expire</masterLabel>
+        <openType>sidebar</openType>
+        <page>RecommendationDelete</page>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+    </webLinks>
+</CustomObject>

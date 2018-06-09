@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Used to enable/disable cache, or change cache settings in the Lattice application.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>CacheTimetoLive__c</fullName>
+        <defaultValue>300</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The amount of time, in seconds, to keep the cached value in the org cache. The maximum is 172,800 seconds (48 hours). The minimum value is 300 seconds or 5 minutes. The default value is 86,400 seconds (24 hours).</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The amount of time, in seconds, to keep the cached value in the org cache. The maximum is 172,800 seconds (48 hours). The minimum value is 300 seconds or 5 minutes. The default value is 86,400 seconds (24 hours).</inlineHelpText>
+        <label>Cache Time to Live</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DisablePlatformCache__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>When checked this will prevent the Lattice Application from attempting to use platform cache.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked this will prevent the Lattice Application from attempting to use platform cache.</inlineHelpText>
+        <label>Disable Platform Cache</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Platform Cache Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

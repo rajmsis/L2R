@@ -1,0 +1,273 @@
+<apex:page sidebar="{!showSidebar}" 
+			controller="LBI.LPConfigurationPageController" 
+			tabStyle="Lattice_Admin__tab" 
+			title="{!$Label.lbi__title_lattice_admin}" 
+			action="{!onLoad}" 
+			docType="html-5.0" 
+			cache="false">
+
+	<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+
+	<apex:includeScript value="{!URLFOR($Resource.LBI__select2,'js/select2.min.js')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.LBI__select2,'css/select2-bootstrap.min.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.LBI__select2,'css/select2.min.css')}"/>
+
+	<apex:outputPanel layout="none" rendered="{!isInstallPath}">
+		<apex:stylesheet value="{!URLFOR($Resource.LBI__installAssets,'styles/admin.css')}"/>
+	</apex:outputPanel>
+	<apex:outputPanel layout="none" rendered="{!!isInstallPath}">
+		<apex:stylesheet value="{!URLFOR($Resource.LBI__installAssets,'styles/global.css')}"/>
+	</apex:outputPanel>
+
+	<apex:includeScript value="{!$Resource.LBI__LPConfigurationPage_js}"/>
+
+	<script type="text/javascript">
+
+		function setFocusOnLoad() {}
+
+		$(document).ready(function() {
+			initLPConfigScreen();
+		});
+	</script>
+
+	<style>
+		.disabled {
+			pointer-events: none;
+			cursor: default;
+		}
+	</style>
+
+	<!-- This shows up when they don't have Lattice admin permissionset. -->
+	<apex:outputpanel layout="none" rendered="{!!hasPermissionRequired}">
+		<apex:pageMessages id="noPermissionPageMessages"/>
+	</apex:outputpanel>
+
+	<!-- This only renders when they DO have access. -->
+	<apex:outputpanel layout="none" rendered="{!hasPermissionRequired}">
+
+		<apex:outputPanel layout="none" rendered="{!!isInstallPath}">
+			<section>
+				<apex:form id="headerForm">
+					<div class="sidebar">
+						<ul>
+							<li class="lattice-logo"><a href=""><span>Lattice</span></a></li>
+							<li class="{!IF(selectedMenuItem = 'primaryAttributes' || selectedMenuItem = 'enrichmentAttributes', 'active', '')}">
+								<apex:actionRegion >
+									<apex:commandLink action="{!selectMenuItem}" styleClass="mainLink {!IF(isPrimaryAttributesUpgraded, '', 'disabled')}" >
+										<span class="ico-container">
+											<span class="ico-dataCloud"/>
+										</span>
+										<span>{!$Label.lbi__lpc_latticedatacloud}</span>
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="primaryAttributes"/>
+									</apex:commandLink>
+								</apex:actionRegion>
+							</li>
+							<li class="{!IF(selectedMenuItem = 'modelSetup' || selectedMenuItem = 'campaignRollup' || selectedMenuItem = 'scoringRules', 'active', '')}">
+								<apex:actionRegion >
+									<apex:commandLink action="{!selectMenuItem}" styleClass="mainLink {!IF(isPrimaryAttributesUpgraded, '', 'disabled')}">
+										<span class="ico-container">
+											<span class="ico-scoreSettings"/>
+										</span>
+										<span>{!$Label.lbi__lpc_scoreenrich}</span>
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="modelSetup"/>
+									</apex:commandLink>
+								</apex:actionRegion>
+							</li>
+							<li>
+								<apex:outputLink value="{!$Page.LBI__BulkScoreDashboard}" styleClass="mainLink {!IF(isPrimaryAttributesUpgraded, '', 'disabled')}">
+									<span class="ico-container">
+										<span class="ico-bulkJobs"/>
+									</span>
+									<span>{!$Label.lbi__lpc_bulkscoringjobs}</span>
+								</apex:outputLink>
+							</li>
+							<li class="{!IF(selectedMenuItem = 'authAndData' || selectedMenuItem = 'latticeURL' || selectedMenuItem = 'cleanup', 'active', '')}">
+								<apex:actionRegion >
+									<apex:commandLink action="{!selectMenuItem}" styleClass="mainLink {!IF(isPrimaryAttributesUpgraded, '', 'disabled')}">
+										<span class="ico-container">
+											<span class="ico-auth"/>
+										</span>
+										<span>{!$Label.lbi__lpc_authenticationintegration}</span>
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="authAndData"/>
+									</apex:commandLink>
+								</apex:actionRegion>
+							</li>
+							<li>
+								<a href="{!supportLink}" target="_new">
+									<span class="ico-container">
+										<span class="ico-support"/>
+									</span>
+									<span>
+										{!$Label.lbi__ais_adminsupportlink}
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div><!-- End .sidebar -->
+					<apex:actionFunction name="checkStatus" action="{!checkInstallStatus}" reRender="headerForm, notificationAlert"/>
+
+				</apex:form>
+
+				<div class="content-area">
+					<apex:form id="theForm">
+						<div class="header">
+							<hgroup>
+								<h2>{!$Label.lbi__ais_lpapptitle}</h2>
+								<h3>
+									<apex:outputText value="{!$Label.lbi__lpc_latticedatacloud}" styleclass="primary-attributes" rendered="{!selectedMenuItem = 'primaryAttributes' || selectedMenuItem = 'enrichmentAttributes'}"/>
+									<apex:outputText value="{!$Label.lbi__lpc_scoreenrich}" styleclass="model-setup" rendered="{!selectedMenuItem = 'modelSetup' || selectedMenuItem = 'campaignRollup' || selectedMenuItem = 'scoringRules'}"/>
+									<apex:outputText value="{!$Label.lbi__lpc_authenticationintegration}" styleclass="auth-data" rendered="{!selectedMenuItem = 'authAndData' || selectedMenuItem = 'latticeURL' || selectedMenuItem = 'cleanup'}"/>
+									<apex:outputText value="{!$Label.lbi__not_shorttitle}" styleclass="notification-title" rendered="{!selectedMenuItem = 'notification'}"/>
+								</h3>
+							</hgroup>
+							<div class="actions">
+								<apex:commandLink action="{!selectMenuItem}" styleClass="notifications" id="notificationAlert">
+									<apex:outputPanel rendered="{!notificationCount != '0'}" styleClass="count">{!notificationCount}</apex:outputPanel>
+									<apex:param name="type" assignTo="{!selectedMenuItem}" value="notification"/>
+								</apex:commandLink>
+
+								<c:AppChangeComponent id="appChangeComponent" useInAdminScreen="true" linkClassName="change-application" performDMLOnComponent="true"/>
+							</div>
+
+						</div>
+						<ul class="tabs primary-tabs">
+							<apex:outputPanel layout="none" rendered="{!selectedMenuItem = 'primaryAttributes' || selectedMenuItem = 'enrichmentAttributes'}">
+								<li class="{!IF(selectedMenuItem = 'primaryAttributes', 'active', '')}">
+									<apex:commandLink value="{!$Label.lbi__pa_title}" action="{!selectMenuItem}">
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="primaryAttributes"/>
+									</apex:commandLink>
+								</li><apex:outputPanel layout="none" rendered="{! isEnrichmentOn}"><li class="{!IF(selectedMenuItem = 'enrichmentAttributes', 'active', '')}">
+										<apex:commandLink value="{!$Label.lbi__ea_enrichmentattribute}" action="{!selectMenuItem}">
+											<apex:param name="type" assignTo="{!selectedMenuItem}" value="enrichmentAttributes"/>
+										</apex:commandLink>
+									</li>
+								</apex:outputPanel>
+							</apex:outputPanel>
+
+							<apex:outputPanel layout="none" rendered="{!selectedMenuItem = 'modelSetup' || selectedMenuItem = 'campaignRollup' || selectedMenuItem = 'scoringRules'}">
+								<li class="{!IF(selectedMenuItem = 'modelSetup', 'active', '')}">
+									<apex:commandLink value="{!$Label.lbi__mod_models}" action="{!selectMenuItem}">
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="modelSetup"/>
+									</apex:commandLink>
+								</li><li class="{!IF(selectedMenuItem = 'campaignRollup', 'active', '')}">
+									<apex:commandLink value="{!$Label.lbi__cr_shorttitle}" action="{!selectMenuItem}">
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="campaignRollup"/>
+									</apex:commandLink>
+								</li><li class="{!IF(selectedMenuItem = 'scoringRules', 'active', '')}">
+									<apex:commandLink value="{!$Label.lbi__lpa_scoringrules}" action="{!selectMenuItem}">
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="scoringRules"/>
+									</apex:commandLink>
+								</li>
+
+							</apex:outputPanel>
+
+							<apex:outputPanel layout="none" rendered="{!selectedMenuItem = 'authAndData' || selectedMenuItem = 'latticeURL' || selectedMenuItem = 'cleanup'}">
+								<li class="{!IF(selectedMenuItem = 'authAndData', 'active', '')}">
+									<apex:commandLink value="{!$Label.lbi__lpa_authanddata}" action="{!selectMenuItem}">
+										<apex:param name="type" assignTo="{!selectedMenuItem}" value="authAndData"/>
+									</apex:commandLink>
+								</li><apex:outputPanel layout="none" rendered="{! isEnrichmentOn}"><li class="{!IF(selectedMenuItem = 'latticeURL', 'active', '')}">
+										<apex:commandLink value="{!$Label.lbi__url_shorttitle}" action="{!selectMenuItem}">
+											<apex:param name="type" assignTo="{!selectedMenuItem}" value="latticeURL"/>
+										</apex:commandLink>
+									</li>
+								</apex:outputPanel><apex:outputPanel layout="none" rendered="{! canSeeCleanup}">
+									<li class="{!IF(selectedMenuItem = 'cleanup', 'active', '')}">
+										<apex:commandLink value="{!$Label.lbi__ic_shorttitle}" action="{!selectMenuItem}">
+											<apex:param name="type" assignTo="{!selectedMenuItem}" value="cleanup"/>
+										</apex:commandLink>
+									</li>
+								</apex:outputPanel>
+
+							</apex:outputPanel>
+						</ul>
+					</apex:form>
+
+					<apex:outputPanel layout="block" styleClass="container-fluid primary-tab-content" id="componentBlock">
+						<c:NotificationComponent rendered="{!selectedMenuItem = 'notification'}" id="notification"/>
+
+						<c:PrimaryAttributesComponent rendered="{!selectedMenuItem = 'primaryAttributes'}" id="primaryAttributes"/>
+						<c:EnrichmentAttributesComponent rendered="{!selectedMenuItem = 'enrichmentAttributes'}" id="enrichmentAttributes"/>
+
+						<c:ModelSetupComponent rendered="{!selectedMenuItem = 'modelSetup'}" id="modelSetup"/>
+						<c:CampaignRollupComponent rendered="{!selectedMenuItem = 'campaignRollup'}" id="campaignRollup"/>
+						<c:ScoringRulesComponent rendered="{!selectedMenuItem = 'scoringRules'}" id="scoringRules"/>
+
+						<c:LPAuthenticateAndData appSett="{!appSettings}" rendered="{!selectedMenuItem = 'authAndData'}" id="authenticateAndData"/>
+						<c:LatticeURLComponent rendered="{!selectedMenuItem = 'latticeURL'}" id="latticeURL"/>
+						<c:LatticeCleanupComponent rendered="{!selectedMenuItem = 'cleanup'}" id="cleanup"/>
+
+					</apex:outputPanel>
+				</div><!-- End .content-area -->
+
+			</section><!-- End .model-details -->
+		</apex:outputPanel>
+
+		<apex:outputPanel layout="none" rendered="{!isInstallPath}">
+			<apex:form >
+				<div id="lattice-admin">
+
+					<div class="container-fluid">
+
+						<div class="row">
+
+							<div class="col-md-8 col-md-offset-2 install">
+								<div class="lattice-logo">
+									<apex:image url="{!URLFOR($Resource.LBI__installAssets, 'img/lattice-logo-white.svg')}"/>
+									<span class="carrot"/>
+								</div>
+								<h3>{!$Label.lbi__ais_connecttolattice}</h3>
+
+								<apex:outputPanel layout="inline" id="messagesLogin" styleClass="messages-{!numberErrorMessages}">
+									<apex:pageMessages id="messagesHolder" />
+								</apex:outputPanel>
+
+								<div class="row">
+									<div class="col-md-5 col-md-offset-1 form-group">
+										<label for="clientIdForm">{!$Label.lbi__lab_tenantname}</label>
+										<apex:inputText value="{!oAuthClientId}" styleclass="form-control required-border" label="Client ID" id="loginClientId"/>
+										<div id="validation-loginClientId" class="required-text" style="display: none">{!$Label.LAB_EmptyField}</div>
+									</div>
+									
+									<div class="col-md-5 form-group">
+										<label for="otkForm">{!$Label.LAB_OneTimeKey}:</label>
+										<apex:inputSecret value="{!oAuthOneTimeKey}" styleclass="form-control required-border" label="One Time Key:" id="loginOTK"/>
+										<div id="validation-loginOTK" class="required-text" style="display: none">{!$Label.LAB_EmptyField}</div>
+									</div>
+
+									<div class="col-md-12">
+										<apex:commandButton id="submitToLogin" styleClass="btn btn-primary center-block" value="{!$Label.lbi__lab_connect}" action="{!loginToLatticeServer}" onclick="if (!validateLogin()) {return false;}"/>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row install-help">
+
+							<div class="col-md-8 col-md-offset-2">
+								<div class="col-md-6">
+									<h4>{!$Label.lbi__ais_tryitout}</h4>
+									<small><i><apex:outputText escape="false" value="{!$Label.lbi__ais_notquiteready}"/></i></small>
+									<apex:commandButton styleClass="btn btn-default btn-sm" value="{!$Label.lbi__ais_continuesetuptestmode}" action="{!useTestData}" immediate="true" html-formnovalidate="formnovalidate"/>
+								</div>
+
+								<div class="col-md-6">
+									<h4>{!$Label.lbi__ais_needhelp}</h4>
+									<small><i><apex:outputText escape="false" value="{!$Label.lbi__ais_latticeenginesintro}"/></i></small>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</apex:form>
+		</apex:outputPanel>
+
+	</apex:outputpanel>
+
+
+</apex:page>

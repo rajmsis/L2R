@@ -1,0 +1,73 @@
+<messaging:emailTemplate subject="{!$Organization.Name + ': ' + $Label.lbi__not_digestsubject}" recipientType="User" relatedToType="LBI__Digest__c">
+<messaging:plainTextEmailBody >
+
+{!$Label.lbi__not_digestintro}
+
+<apex:variable value="{!1}" var="rowNum"/>
+
+<apex:repeat value="{!RelatedTo.Notifications__r}" var="notif">
+    <apex:outputText value="{!notif.LBI__Type__c}" rendered="{!notif.LBI__IsCritical__c}"/>
+    {!$Label.lbi__not_issued}: <apex:outputText value="{!notif.CreatedDate}" />
+    <apex:outputText value="{!notif.LBI__Title__c}" />
+    <apex:outputText value="{!notif.LBI__Description__c}" />
+
+    <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+</apex:repeat>
+
+<apex:outputText value="{!$Label.lbi__not_nonotifications}" rendered="{!rowNum > 1}"/>
+
+</messaging:plainTextEmailBody>
+<messaging:htmlEmailBody >
+
+<apex:outputPanel layout="inline" id="thePage">
+
+    <table style="max-width: 800px; min-width: 600px; margin: 0 auto;">
+        <tr style="border-bottom: 1px solid #DBDAD5; display: block;">
+            <td style="width:100%;display:block;">
+                <h2 style="font-size: 24px; color: #2E2E2C; font-weight: 100; margin-bottom: 0; margin-top:0;display:inline-block;padding-bottom:10px;">Notifications: Nightly Digest</h2>
+                <img src="http://pages.lattice-engines.com/rs/latticeengines/images/lattice-logo.png" alt="Logo" title="Logo" style="display:block; float:right;" width="100" height="26" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p style="color: #2E2E2C; margin-top: 15px;">{!$Label.lbi__not_digestintro}</p>
+            </td>
+        </tr>
+        <apex:variable value="{!1}" var="rowNum"/>
+            <apex:repeat value="{!RelatedTo.Notifications__r}" var="notif">
+                <tr>
+                    <td style="background: #F3F2F1; padding: 25px; border-radius: 4px; margin-bottom: 10px;">
+                        <apex:outputPanel layout="inline" rendered="{!notif.LBI__IsCritical__c}">{!notif.LBI__Type__c}</apex:outputPanel>
+                        <span style="color: #2E2E2C; font-style: italic; font-size: 11px;">{!$Label.lbi__not_issued}:&nbsp;&nbsp;<apex:outputField value="{!notif.CreatedDate}" /></span>
+
+                        <h3 style="color: #2E2E2C; font-size: 18px; font-weight: normal; margin: 5px 0;"><apex:outputLink value="{!notif.LBI__ResolutionLink__c}"><apex:outputText value="{!notif.LBI__Title__c}" /></apex:outputLink></h3>
+
+                        <p style="color: #2E2E2C; margin-top: 5px; margin-bottom: 0;"><apex:outputText value="{!notif.LBI__Description__c}"></apex:outputText></p>
+                    </td>
+                </tr>
+                <tr> <td>&nbsp;</td> </tr>
+            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+        </apex:repeat>
+
+        <tr>
+            <td style="background: #F3F2F1; padding: 25px; border-radius: 4px; margin-bottom: 10px;">
+                <apex:outputPanel layout="none" rendered="{!rowNum <= 1}">
+                <p style="color: #2E2E2C; margin-top: 5px; margin-bottom: 0;">{!$Label.lbi__not_nonotifications}</p>
+                </apex:outputPanel>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">
+                <small style="text-align: center; color: #989894; padding: 20px 0; width: 75%; margin:0 auto; display: block;"><i>This email is being sent to you because you are a recipient for notifications on Lattice Engines for Salesforce. If you would like to be taken off of this list, please contact your Salesforce Administrator.
+                <br /><br />
+                To resolve or learn more about the above notification(s), log in to your Salesforce Account or contact your Salesforce Administrator.</i></small>
+            </td>
+        </tr>
+    </table>
+
+</apex:outputPanel>
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

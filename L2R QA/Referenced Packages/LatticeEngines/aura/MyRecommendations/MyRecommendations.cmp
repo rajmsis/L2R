@@ -1,0 +1,169 @@
+<aura:component controller="LBI.LCMyRecommendationsController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute access="public" name="recommendations" type="Object[]" description="Current Recommendations being Displayed" />
+
+	<aura:attribute access="public" name="labels" type="Object" description="Localized Labels" />
+	<aura:attribute access="public" name="namespacePrefix" type="String" default="" description="Namespace Prefix" />
+
+    <aura:attribute access="public" name="showDropdown" type="Boolean" description="Boolean to hide the screen until we have all the data" default="false" />
+    <aura:attribute access="public" name="dropdownObject" type="String" description="Object For the Dropdown" />
+    <aura:attribute access="public" name="dropdownField" type="String" description="Field For the Dropdown" />
+    <aura:attribute access="public" name="dropdownDisplayField" type="String" description="Field To Display records in the Dropdown" />
+
+    <ltng:require scripts="{!$Resource.LBI__LightningJSUtilities_js}" afterScriptsLoaded="{!c.init}" />
+
+    <aura:handler name="inputChanged" event="LBI:InputValueChanged" action="{!c.handleLookupChange}" includeFacets="true"/>
+
+    <aura:if isTrue="{!v.showDropdown}">
+
+    <lightning:card variant="narrow">
+        <aura:set attribute="title">
+        	{!v.labels.title}
+        </aura:set>
+        <aura:set attribute="footer">
+            <!-- <lightning:badge label="footer"/> -->
+            <div class="{! (v.recommendations.length == 0) ? 'slds-text-body--regular slds-align--absolute-center slds-m-top--medium' : 'slds-hide'}">
+		        {!v.labels.noRecs}
+		    </div>
+		    <a class="{!v.recommendations.length != 0 ? '' : 'slds-hide'}" href="javascript:void()" onclick="{!c.viewAllRecommendations}">{!v.labels.viewAll} <span class="slds-assistive-text">{!v.labels.viewAll}</span></a>
+        </aura:set>
+        <aura:set attribute="actions">
+            <!-- <lightning:button label="New"/> -->
+        </aura:set>
+        <p class="slds-p-horizontal--small">
+        	<LBI:InputLookup label="" sObjectAPIName="{!v.dropdownObject}" fieldAPIName="{!v.dropdownField}" displayFieldAPIName="{!v.dropdownDisplayField}"
+    					whereClause="" subtitleField="Name" placeholder="{!v.labels.placeholder}"
+    					listIconClass="utility:moneybag" />
+
+      		<div class="slds-grid slds-wrap slds-grid--pull-padded">
+	            <aura:iteration items="{!v.recommendations}" var="rec">
+	            	<div class="slds-tile slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-hint-parent slds-border--bottom">
+				        <div class="slds-media__body">
+				          	<div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+				            	<h3 class="slds-page-header__title slds-truncate slds-m-bottom--x-small" title="{!rec.playTypeName}"><a href="{!'/' + rec.accountId}">{!rec.accountName}</a></h3>
+				            	<div class="slds-shrink-none">
+				            		<div class="{! 'progress-radial progress-' + rec.rank}">
+			                  			<div class="overlay">
+			                    			<span>{!rec.rank}</span>
+			                  			</div>
+			                		</div>
+				            	</div>
+				          	</div>
+				          	<div class="slds-tile__detail slds-text-body--small">
+
+				          		<dl class="slds-list--vertical slds-m-bottom--small">
+				              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.play}">{!v.labels.play}:</dt>
+				              		<dd class="slds-item--detail"><a href="{!'/' + rec.id}">{!rec.playDisplayName}</a></dd>
+				          		</dl>
+				          		<div class="slds-grid">
+				          			<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+					              			<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.daysActive}">{!v.labels.daysActive}:</dt>
+					              			<dd class="slds-item--detail slds-truncate">{!rec.ageInDays}</dd>
+					              		</dl>
+				              		</div>
+				              		<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+						              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.estRevenue}">{!v.labels.estRevenue}:</dt>
+						              		<dd class="slds-item--detail slds-truncate"><ui:outputCurrency value="{!rec.monetaryValue}" /></dd>
+					              		</dl>
+				              		</div>
+				              		<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+						              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.status}">{!v.labels.status}:</dt>
+						              		<dd class="slds-item--detail slds-truncate">{!rec.status}</dd>
+						            	</dl>
+				              		</div>
+					            </div>
+				          </div>
+				        </div>
+				    </div>
+	            </aura:iteration>
+      		</div>
+        </p>
+    </lightning:card>
+
+	<lightning:spinner variant="brand" size="large" aura:id="loadingSpinner" alternativeText="Loading..."/>
+
+	<!--
+	Commented. If uncommented replace ~~ with two dashes (-)
+
+	<article class="cardbackground">
+	  	<div class="slds-card__header slds-grid">
+	    	<header class="slds-media slds-media~~center slds-has-flexi-truncate">
+		      	<div class="slds-media__body slds-truncate">
+		        	<h2>
+		          		<a href="javascript:void()" class="slds-text-link~~reset" onclick="{!c.viewAllRecommendations}">
+		              		<span class="slds-text-heading~~small">&nbsp;{!v.labels.title}</span>
+		          		</a>
+		        	</h2>
+		      	</div>
+	    	</header>
+	  	</div>
+	  	<div class="slds-card__body">
+	    	<div class="slds-card__body~~inner slds-truncate">
+		  		<div class="slds-form-element slds-p-bottom~~large">
+	       			<ui:inputSelect aura:id="plays" change="{!c.onChange}">
+		            	<aura:iteration items="{!v.allPlays}" var="play" indexVar="index">
+		            		<ui:inputSelectOption aura:id="{!index}" text="{!play.id}" label="{!play.name}"/>
+		        		</aura:iteration>
+		  			</ui:inputSelect>
+	      		</div>
+
+		      	<aura:iteration items="{!v.recommendations}" var="rec">
+
+			        <div class="slds-tile">
+			          	<h3 class="slds-page-header__title slds-truncate slds-m-bottom~~x-small" title="{!rec.playTypeName}"><a href="{!'/' + rec.id}">{!rec.accountName}</a></h3>
+			          	<div class="slds-tile__detail slds-text-body~~small">
+			            	<dl class="slds-dl~~horizontal">
+			              		<dt class="slds-dl~~horizontal__label info">
+			                		<span class="slds-truncate" title="Type">{!v.labels.score}:</span>
+			              		</dt>
+				              	<dd class="slds-dl~~horizontal__detail slds-tile__meta">
+				                	<div class="{! 'progress-radial progress-' + rec.rank}">
+				                  		<div class="overlay">
+				                    		<span>{!rec.rank}</span>
+				                  		</div>
+				                	</div>
+				              	</dd>
+								<dt class="slds-dl~~horizontal__label info">
+									<span class="slds-truncate" title="Type">{!v.labels.play}:</span>
+								</dt>
+								<dd class="slds-dl~~horizontal__detail slds-tile__meta">
+									<p>{!rec.playDisplayName}</p>
+								</dd>
+								<dt class="slds-dl~~horizontal__label info">
+									<span class="slds-truncate" title="Type">{!v.labels.daysActive}:</span>
+								</dt>
+								<dd class="slds-dl~~horizontal__detail slds-tile__meta">
+									<span class="slds-truncate" title="Visit">{!rec.ageInDays}</span>
+								</dd>
+								<dt class="slds-dl~~horizontal__label info">
+									<span class="slds-truncate" title="Type">{!v.labels.estRevenue}:</span>
+								</dt>
+								<dd class="slds-dl~~horizontal__detail slds-tile__meta">
+									<ui:outputCurrency value="{!rec.monetaryValue}" />
+								</dd>
+								<dt class="slds-dl~~horizontal__label info">
+									<span class="slds-truncate" title="Type">{!v.labels.status}:</span>
+								</dt>
+								<dd class="slds-dl~~horizontal__detail slds-tile__meta">
+									<span class="slds-truncate" title="Visit">{!rec.status}</span>
+								</dd>
+				            </dl>
+			            	<hr/>
+			          	</div>
+			        </div>
+		      	</aura:iteration>
+	  		</div>
+		</div>
+	  	<div class="slds-card__footer">
+		    <div class="{! (v.recommendations.length == 0) ? 'slds-text-body~~regular slds-align~~absolute-center slds-m-top~~medium' : 'slds-hide'}">
+		        {!v.labels.noRecs}
+		    </div>
+		    <a class="{!v.recommendations.length != 0 ? '' : 'slds-hide'}" href="javascript:void()" onclick="{!c.viewAllRecommendations}">{!v.labels.viewAll} <span class="slds-assistive-text">{!v.labels.viewAll}</span></a>
+	  	</div>
+	</article> -->
+
+    </aura:if>
+
+</aura:component>

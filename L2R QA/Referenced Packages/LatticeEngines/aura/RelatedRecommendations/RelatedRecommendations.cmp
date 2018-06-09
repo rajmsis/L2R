@@ -1,0 +1,156 @@
+<aura:component controller="LBI.LCRelatedRecommendationsController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="relatedType" type="String" default="Account" access="global"/>
+
+	<aura:attribute access="public" name="recommendations" type="Object[]" description="Current Recommendations being Displayed" />
+
+	<aura:attribute access="public" name="labels" type="Object" description="Localized Labels" />
+	<aura:attribute access="public" name="namespacePrefix" type="String" default="" description="Namespace Prefix" />
+
+	<ltng:require scripts="{!$Resource.LBI__LightningJSUtilities_js}" afterScriptsLoaded="{!c.init}" />
+
+	<lightning:card variant="narrow">
+        <aura:set attribute="title">
+        	<!-- {!v.labels.title}&nbsp;{!v.relatedType} -->
+        	{!v.labels.recTitle}
+        </aura:set>
+        <aura:set attribute="footer">
+            <!-- <lightning:badge label="footer"/> -->
+            <div class="{! (v.recommendations.length == 0) ? 'slds-text-body--regular slds-align--absolute-center slds-m-top--medium' : 'slds-hide'}">
+		        {!v.labels.noRecs}
+		    </div>
+        </aura:set>
+        <aura:set attribute="actions">
+            <!-- <lightning:button label="New"/> -->
+        </aura:set>
+        <p class="slds-p-horizontal--small">
+        	<div class="slds-grid slds-wrap slds-grid--pull-padded">
+	            <aura:iteration items="{!v.recommendations}" var="rec">
+	            	<div class="slds-tile slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-hint-parent slds-border--bottom">
+				        <div class="slds-media__body">
+				          	<div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+				            	<h3 class="slds-page-header__title slds-truncate slds-m-bottom--x-small" title="{!rec.playTypeName}"><a href="{!'/' + rec.accountId}">{!rec.accountName}</a></h3>
+				            	<div class="slds-shrink-none">
+				            		<div class="{! 'progress-radial progress-' + rec.rank}">
+			                  			<div class="overlay">
+			                    			<span>{!rec.rank}</span>
+			                  			</div>
+			                		</div>
+				            	</div>
+				          	</div>
+				          	<div class="slds-tile__detail slds-text-body--small">
+
+				          		<dl class="slds-list--vertical slds-m-bottom--small">
+				              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.play}">{!v.labels.play}:</dt>
+				              		<dd class="slds-item--detail"><a href="{!'/' + rec.id}">{!rec.playDisplayName}</a></dd>
+				          		</dl>
+				          		<div class="slds-grid">
+				          			<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+					              			<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.daysActive}">{!v.labels.daysActive}:</dt>
+					              			<dd class="slds-item--detail slds-truncate">{!rec.ageInDays}</dd>
+					              		</dl>
+				              		</div>
+				              		<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+						              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.estRevenue}">{!v.labels.estRevenue}:</dt>
+						              		<dd class="slds-item--detail slds-truncate"><ui:outputCurrency value="{!rec.monetaryValue}" /></dd>
+					              		</dl>
+				              		</div>
+				              		<div class="slds-size--1-of-3 slds-m-bottom--small">
+					            		<dl class="slds-list--vertical">
+						              		<dt class="slds-item--label slds-text-color--weak slds-truncate" title="{!v.labels.status}">{!v.labels.status}:</dt>
+						              		<dd class="slds-item--detail slds-truncate">{!rec.status}</dd>
+						            	</dl>
+				              		</div>
+					            </div>
+				          </div>
+				        </div>
+				    </div>
+	            </aura:iteration>
+      		</div>
+        </p>
+    </lightning:card>
+
+	<lightning:spinner variant="brand" size="large" aura:id="loadingSpinner" alternativeText="Loading..."/>
+
+<!--
+	Commented. If uncommented replace ~~ with two dashes (-)
+<article class="cardbackground">
+	<div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media~~center slds-has-flexi-truncate">
+        <c:SVGRenderer svgPath="/resource/SLDS213/assets/icons/standard-sprite/svg/symbols.svg#insights" category="standard" name="insights" size="large" />
+        <div class="slds-media__body slds-truncate">
+          <h2>
+            <span class="slds-text-heading~~small">&nbsp;Recommendations for the same {!v.relatedType}</span>
+          </h2>
+        </div>
+      </header>
+    </div>
+	<div class="slds-card__body">
+		<div class="slds-card__body~~inner slds-truncate">
+	        <aura:iteration items="{!v.recommendations}" var="rec">
+				<div class="slds-tile">
+		          <h3 class="slds-page-header__title slds-truncate slds-m-bottom~~x-small" title="{!rec.accountName}">
+					  <a href="{!'/' + rec.id}">{!v.relatedType == 'Account' ? rec.playDisplayName : rec.accountName}</a>
+				  </h3>
+		          <div class="slds-tile__detail slds-text-body~~small">
+		            <dl class="slds-dl~~horizontal">
+		              <dt class="slds-dl~~horizontal__label info">
+		                <span class="slds-truncate" title="Type">Lattice Score:</span>
+		              </dt>
+		              <dd class="slds-dl~~horizontal__detail slds-tile__meta">
+		                <div class="{! 'progress-radial progress-' + rec.rank}">
+		                  <div class="overlay">
+		                    <span>{!rec.rank}</span>
+		                  </div>
+		                </div>
+		              </dd>
+		              <dt class="slds-dl~~horizontal__label info">
+		                <span class="slds-truncate" title="Type">{!v.relatedType == 'Play' ? 'Play' : 'Account'}:</span>
+		              </dt>
+		              <dd class="slds-dl~~horizontal__detail slds-tile__meta">
+		                <p>{!v.relatedType == 'Play' ? rec.playDisplayName : rec.accountName}</p>
+		              </dd>
+		              <dt class="slds-dl~~horizontal__label info">
+		                <span class="slds-truncate" title="Type">Days Active:</span>
+		              </dt>
+		              <dd class="slds-dl~~horizontal__detail slds-tile__meta">
+		                <span class="slds-truncate" title="Visit">{!rec.ageInDays}</span>
+		              </dd>
+		              <dt class="slds-dl~~horizontal__label info">
+		                <span class="slds-truncate" title="Type">Est. Revenue:</span>
+		              </dt>
+		              <dd class="slds-dl~~horizontal__detail slds-tile__meta">
+		                <ui:outputCurrency value="{!rec.monetaryValue}" />
+		              </dd>
+		              <dt class="slds-dl~~horizontal__label info">
+		                <span class="slds-truncate" title="Type">Status:</span>
+		              </dt>
+		              <dd class="slds-dl~~horizontal__detail slds-tile__meta">
+		                <span class="slds-truncate" title="Visit">{!rec.status}</span>
+		              </dd>
+		            </dl>
+		            <hr/>
+		          </div>
+			  </div>
+			</aura:iteration>
+		</div>
+	</div>
+	<div class="slds-card__footer">
+      <div class="{!v.showSpinner ? 'slds-spinner_container loading slds-m-top~~medium' : 'slds-hide'}">
+          <div class="slds-spinner~~brand slds-spinner slds-spinner~~medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+	</div>
+	<div class="{! !v.showSpinner &amp;&amp; (v.recommendations.length == 0) ? 'slds-text-body~~regular slds-align~~absolute-center slds-m-top~~medium' : 'slds-hide'}">
+		No recommendations found with the specified filter
+	</div>
+
+</article>
+-->
+
+</aura:component>

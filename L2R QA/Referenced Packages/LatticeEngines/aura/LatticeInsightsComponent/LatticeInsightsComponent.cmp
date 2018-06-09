@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global">
+	<aura:attribute access="global" name="recordId" type="String" />
+	<aura:attribute access="global" name="sObjectName" type="String" />
+
+	<LBI:RecommendationIFrame recordId="{!v.recordId}" sObjectName="{!v.sObjectName}" iFrameType="Lattice Insights" />
+</aura:component>

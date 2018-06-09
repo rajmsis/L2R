@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$Name</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$APIFieldName__c</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$DisplayName__c</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$GenericFieldName__c</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$FieldType__c</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$Length__c</field>
+    </columns>
+    <columns>
+        <field>AccountExtensionFieldDescribe__c$IsActive__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Account Extension Schema - All Records</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Account_Extension_Schema__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>AccountExtensionFieldDescribe__c$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>AccountExtensionFieldDescribe__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>
